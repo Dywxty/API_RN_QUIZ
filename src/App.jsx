@@ -29,8 +29,10 @@ function Aplicacao() {
       const dados = await getQuiz(dificuldade);
       setQuiz(dados);
     } catch (error) {
-      const exemplo = questoesExemplo[indicePergunta % questoesExemplo.length];
-      setQuiz(exemplo);
+      const todasPerguntas = Object.values(questoesExemplo).flat();
+      const aleatorio = todasPerguntas[Math.floor(Math.random() * todasPerguntas.length)];
+      const exemplo = todasPerguntas[(indicePergunta + Math.floor(Math.random() * todasPerguntas.length)) % todasPerguntas.length];
+      setQuiz(exemplo || aleatorio);
       setMensagem("A API não respondeu. Usando uma pergunta de exemplo.");
     } finally {
       setCarregando(false);
